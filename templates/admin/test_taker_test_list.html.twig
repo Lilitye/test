@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h4 class="text-center pt-2">{{ testTaker.firstName ~ ' ' ~ testTaker.lastName }}'s test result</h4>
+
+    <div class="m-2 w-50">
+        <div class="row fw-bold border-bottom">
+            <div class="col-sm-6">Test Taken At</div>
+            <div class="col-sm-4">Percent</div>
+            <div class="col-sm-2"></div>
+        </div>
+
+        {% for testResult in testResults %}
+            <div class="row mt-1">
+                <div class="col-sm-6">{{ testResult.testTakenAt|date('Y-m-d H:i:s') }}</div>
+                <div class="col-sm-3">{{ testResult.percent == testResult.percent // 1 ? testResult.percent|number_format(0) : testResult.percent|number_format(2, '.', '') }} %</div>
+                <div class="col-sm-3">
+                    <a href="{{ path("admin_test_result_answers", {"testResultId": testResult.id}) }}" >View answers</a>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

@@ -1,0 +1,39 @@
+<ul class="list-group">
+    {% for questionResult in questionResultList %}
+
+        <li class="list-group-item ">
+            <div class="row w-100 ms-2">
+                <div class="col-sm-6 fw-bold text-primary">{{ questionResult.question.questionText }}</div>
+                <div class="col-sm-6">
+                    <ul class="list-group">
+                        {% for i, answer in questionResult.question.answers %}
+                            {% set isSelectedAnswer = false %}
+                            {% if answer.id in questionResult.answerIds %}
+                                {% set isSelectedAnswer = true %}
+                            {% endif %}
+
+                            <li class="list-group-item border-0 p-1">
+                                <div class="row">
+                                    <div class="col-sm-8">
+                                        <label  class="{% if isSelectedAnswer %}fw-bold{% endif %}">
+                                            {{ answer.answerText }}
+                                        </label>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        {% if isSelectedAnswer %}
+                                                {% if answer.isCorrect %}
+                                                    <i class="bi bi-check-circle-fill text-success"></i>
+                                                {% else %}
+                                                    <i class="bi bi-x-circle-fill text-danger"></i>
+                                                {% endif %}
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </li>
+    {% endfor %}
+</ul>

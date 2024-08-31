@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="container pt-1">
+        <div class="alert alert-danger m-3" role="alert">
+            {{ errorMessage }}
+        </div>
+        <div class="row pt-3">
+            <div class="col-sm-12 text-center">
+                <a href="{{ path("init-test") }}" class="btn btn-outline-primary btn-lg">Try Again</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}

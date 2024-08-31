@@ -1,0 +1,60 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="container pt-3">
+        <h4 class="pt-2 text-capitalize text-center">{% if testTaker is defined and testTaker is not empty %}{{ testTaker.firstName ~ ' ' ~ testTaker.lastName }}'s{% endif %} Test Result</h4>
+        <div class="row text-center">
+            <h2>{{ testResultPercent == testResultPercent // 1 ? testResultPercent|number_format(0) : testResultPercent|number_format(2, '.', '') }}%</h2>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-6 p-2 text-center">
+                <div class="alert alert-success">Correct ({{ correctResult|length }})</div>
+            </div>
+            <div class="col-sm-6 p-2 text-center">
+                <div class="alert alert-danger">Wrong ({{ wrongResult|length }})</div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-6 p-2 text-center">
+                {% if correctResult is empty %}
+                        No correct answer
+                {% else %}
+                    {#{% include "test/question_result_list.html.twig" with {questionResultList: correctResult} %}#}
+                    <ul class="list-group">
+                        {% for questionResult in correctResult %}
+                        <li class="list-group-item d-flex justify-content-between align-items-start">
+                            <div class="ms-2 me-auto">
+                                <div class="fw-bold">{{ questionResult.question.questionText }}</div>
+                            </div>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            </div>
+            <div class="col-sm-6 p-2 text-center">
+                {% if wrongResult is empty %}
+                    No wrong answer
+                {% else %}
+                    {#{% include "test/question_result_list.html.twig" with {questionResultList: wrongResult} %}#}
+                    <ul class="list-group">
+                        {% for questionResult in wrongResult %}
+                        <li class="list-group-item d-flex justify-content-between align-items-start">
+                            <div class="ms-2 me-auto">
+                                <div class="fw-bold">{{ questionResult.question.questionText }}</div>
+                            </div>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="row pt-3">
+            <div class="col-sm-12 text-center">
+                <a href="{{ path("init_test") }}" class="btn btn-outline-primary btn-lg">Try Again</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}
