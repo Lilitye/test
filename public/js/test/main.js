@@ -1,7 +1,6 @@
 $(document).ready(function() {
 
     $(function() {
-
         let smartWizard = $("#smartwizard");
 
         smartWizard.smartWizard({
