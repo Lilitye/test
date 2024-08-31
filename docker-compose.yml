@@ -42,9 +42,10 @@ services:
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: test_task_lilit
+      POSTGRES_DB: test_db
     volumes:
-      - db_data:/var/lib/postgresql/data
+      - db_data:/var/lib/postgresql/test_data
+      - ./docker/postgres/pg_hba.conf:/var/lib/postgresql/test_data/pg_hba.conf
     ports:
       - "5432"
 

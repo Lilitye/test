@@ -1,8 +1,8 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <div class="container pt-2">
-        <h4 class="text-center pt-2">{{ testResult.testTaker.firstName ~ ' ' ~ testResult.testTaker.lastName }}'s test result</h4>
+    <div class="container py-2">
+        <h4 class="text-center pt-2">{{ testResult.examinee.firstName ~ ' ' ~ testResult.examinee.lastName }}'s test result</h4>
         <div class="row text-center">
             <h2>{{ testResult.percent == testResult.percent // 1 ? testResult.percent|number_format(0) : testResult.percent|number_format(2, '.', '') }}%</h2>
         </div>

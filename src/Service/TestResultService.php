@@ -6,7 +6,7 @@ use App\Entity\Answer;
 use App\Entity\Question;
 use App\Entity\TestResult;
 use App\Entity\TestResultQuestion;
-use App\Entity\TestTaker;
+use App\Entity\Examinee;
 use Doctrine\ORM\EntityManagerInterface;
 use Exception;
 use DateTimeImmutable;
@@ -46,7 +46,7 @@ class TestResultService
     }
 
 
-    public function saveTestResult(array $testResultData, TestTaker $testTaker) :TestResult
+    public function saveTestResult(array $testResultData, Examinee $examinee) :TestResult
     {
         $questions = $this->entityManager->getRepository(Question::class)->createQueryBuilder('question')
             ->leftJoin('question.answers', 'answer')
@@ -66,7 +66,7 @@ class TestResultService
         $percent = round($percent, 2);
 
         $testResult = new TestResult();
-        $testResult->setTestTaker($testTaker);
+        $testResult->setExaminee($examinee);
         $testResult->setPercent($percent);
         $testResult->setTestTakenAt(new DateTimeImmutable());
 
@@ -88,9 +88,9 @@ class TestResultService
         return $testResult;
     }
 
-    public function getTestResults(?int $testTakerId) :array
+    public function getTestResults(?int $examineeId) :array
     {
-        $params = !empty($testTakerId) ? ['testTaker' => $testTakerId] : [];
+        $params = !empty($examineeId) ? ['examinee' => $examineeId] : [];
 
         return $this->entityManager->getRepository(TestResult::class)->findBy($params, ['testTakenAt' => 'DESC']);
     }

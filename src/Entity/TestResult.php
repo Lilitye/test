@@ -18,7 +18,7 @@ class TestResult
 
     #[ORM\ManyToOne]
     #[ORM\JoinColumn(nullable: false)]
-    private ?TestTaker $testTaker = null;
+    private ?Examinee $examinee = null;
 
     #[ORM\Column(type: Types::DATETIME_IMMUTABLE)]
     private ?\DateTimeInterface $testTakenAt = null;
@@ -42,14 +42,14 @@ class TestResult
         return $this->id;
     }
 
-    public function getTestTaker(): ?TestTaker
+    public function getExaminee(): ?Examinee
     {
-        return $this->testTaker;
+        return $this->examinee;
     }
 
-    public function setTestTaker(?TestTaker $testTaker): static
+    public function setExaminee(?Examinee $examinee): static
     {
-        $this->testTaker = $testTaker;
+        $this->examinee = $examinee;
 
         return $this;
     }
@@ -99,7 +99,6 @@ class TestResult
     public function removeTestResultQuestion(TestResultQuestion $testResultQuestion): static
     {
         if ($this->testResultQuestions->removeElement($testResultQuestion)) {
-            // set the owning side to null (unless already changed)
             if ($testResultQuestion->getTestResult() === $this) {
                 $testResultQuestion->setTestResult(null);
             }
