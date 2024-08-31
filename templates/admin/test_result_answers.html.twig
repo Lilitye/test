@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="container pt-2">
+        <h4 class="text-center pt-2">{{ testResult.testTaker.firstName ~ ' ' ~ testResult.testTaker.lastName }}'s test result</h4>
+        <div class="row text-center">
+            <h2>{{ testResult.percent == testResult.percent // 1 ? testResult.percent|number_format(0) : testResult.percent|number_format(2, '.', '') }}%</h2>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-6 p-2 text-center">
+                <div class="alert alert-success">Correct ({{ correctResult|length }})</div>
+            </div>
+            <div class="col-sm-6 p-2 text-center">
+                <div class="alert alert-danger">Wrong ({{ wrongResult|length }})</div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-6 p-2">
+                {% if correctResult is empty %}
+                    <div class="text-center">No correct answer</div>
+                {% else %}
+                    {% include "admin/question_result_list.html.twig" with {questionResultList: correctResult} %}
+                {% endif %}
+            </div>
+            <div class="col-sm-6 p-2">
+                {% if wrongResult is empty %}
+                    <div class="text-center">No wrong answer</div>
+                {% else %}
+                    {% include "admin/question_result_list.html.twig" with {questionResultList: wrongResult} %}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

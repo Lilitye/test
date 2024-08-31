@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h4 class="text-center pt-2">Test-Takers</h4>
+
+    <div class="m-2 w-50">
+        <div class="row fw-bold border-bottom">
+            <div class="col-sm-6">Name</div>
+            <div class="col-sm-4">Date</div>
+            <div class="col-sm-2"></div>
+        </div>
+
+        {% for testTaker in testTakers %}
+            <div class="row mt-1">
+                <div class="col-sm-6">{{ testTaker.firstName ~ ' ' ~ testTaker.lastName }}</div>
+                <div class="col-sm-4">{{ testTaker.createdAt|date('Y-m-d H:i:s') }}</div>
+                <div class="col-sm-2">
+                    <a href="{{ path("admin_test_taker_tests", {"testTakerId": testTaker.id}) }}" >View tests</a>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
