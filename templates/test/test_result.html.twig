@@ -2,7 +2,7 @@
 
 {% block body %}
     <div class="container pt-3">
-        <h4 class="pt-2 text-capitalize text-center">{% if testTaker is defined and testTaker is not empty %}{{ testTaker.firstName ~ ' ' ~ testTaker.lastName }}'s{% endif %} Test Result</h4>
+        <h4 class="pt-2 text-capitalize text-center">{% if examinee is defined and examinee is not empty %}{{ examinee.firstName ~ ' ' ~ examinee.lastName }}'s{% endif %} test result</h4>
         <div class="row text-center">
             <h2>{{ testResultPercent == testResultPercent // 1 ? testResultPercent|number_format(0) : testResultPercent|number_format(2, '.', '') }}%</h2>
         </div>

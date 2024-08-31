@@ -24,7 +24,7 @@ class TestController extends AbstractController
     {
     }
 
-    #[Route('/', name: 'init_test')]
+    #[Route('/', name: 'init_test',  methods: ['POST', 'GET'])]
     public function initTest(Request $request): Response
     {
         $requestParams = $request->request->all();
@@ -32,15 +32,15 @@ class TestController extends AbstractController
 
         if(!empty($requestParams)) {
             try {
-                $testTakerSession = $session->get('testTaker');
+                $examineeSession = $session->get('examinee');
 
-                $testResult = $this->testService->saveTestSession($requestParams, $testTakerSession['id'] ?? null);
+                $testResult = $this->testService->saveTest($requestParams, $examineeSession['id'] ?? null);
 
-                $testTaker = $testResult->getTestTaker();
-                $session->set('testTaker', [
-                    'id' => $testTaker->getId(),
-                    'firstName' => $testTaker->getFirstName(),
-                    'lastName' => $testTaker->getLastName()
+                $examinee = $testResult->getExaminee();
+                $session->set('examinee', [
+                    'id' => $examinee->getId(),
+                    'firstName' => $examinee->getFirstName(),
+                    'lastName' => $examinee->getLastName()
                 ]);
 
                 return $this->redirectToRoute('test_result', ['id' => $testResult->getId()]);
@@ -56,8 +56,8 @@ class TestController extends AbstractController
             'questions' => $this->testQuestionService->getTestQuestions(),
         ];
 
-        if(!empty($session->get('testTaker'))) {
-            $params['testTaker'] = $session->get('testTaker');
+        if(!empty($session->get('examinee'))) {
+            $params['examinee'] = $session->get('examinee');
         }
 
         return $this->render('test/test_wizard.html.twig', $params);
@@ -75,9 +75,9 @@ class TestController extends AbstractController
                 'wrongResult' => $testResultData['wrongResult']
             ];
 
-            $testTaker = $request->getSession()->get('testTaker');
-            if(!empty($testTaker)) {
-                $params['testTaker'] = $testTaker;
+            $examinee = $request->getSession()->get('examinee');
+            if(!empty($examinee)) {
+                $params['examinee'] = $examinee;
             }
 
             return $this->render("test/test_result.html.twig", $params);

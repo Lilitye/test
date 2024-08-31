@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h4 class="text-center pt-2">Examinees</h4>
+
+    <div class="m-2 pt-4">
+        <table class="table table-responsive w-50 m-auto">
+            <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Name</th>
+                <th scope="col">Created At</th>
+                <th scope="col"></th>
+            </tr>
+            </thead>
+            <tbody>
+                {% for i, examinee in examinees %}
+                    <tr>
+                        <th scope="row">{{ i + 1 }}</th>
+                        <td>{{ examinee.firstName ~ ' ' ~ examinee.lastName }}</td>
+                        <td>{{ examinee.createdAt|date('Y-m-d H:i:s') }}</td>
+                        <td><a href="{{ path("admin_examinee_tests", {"examineeId": examinee.id}) }}" >View tests</a></td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}
