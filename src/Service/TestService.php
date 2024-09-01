@@ -6,7 +6,7 @@ use App\Entity\TestResult;
 use Doctrine\ORM\EntityManagerInterface;
 use Exception;
 
-readonly class TestService
+class TestService
 {
     public function __construct(
         private ExamineeService        $examineeService,

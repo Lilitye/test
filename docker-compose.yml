@@ -47,7 +47,7 @@ services:
       - db_data:/var/lib/postgresql/test_data
       - ./docker/postgres/pg_hba.conf:/var/lib/postgresql/test_data/pg_hba.conf
     ports:
-      - "5432"
+      - "5432:5432"
 
 volumes:
   db_data:
